@@ -1,0 +1,7 @@
+https://colorhunt.co/palette/001c30176b8764ccc5dafffb
+mint pallet
+
+#001C30 - darkest
+#176B87 - dark
+#64CCC5 - light
+#DAFFFB - lightest
