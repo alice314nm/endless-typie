@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export function useTheme() {
+export function UseTheme() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
