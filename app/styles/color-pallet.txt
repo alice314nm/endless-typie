@@ -1,7 +1,15 @@
-https://colorhunt.co/palette/001c30176b8764ccc5dafffb
-mint pallet
+light theme | green
+https://colorhunt.co/palette/0f2300a2b77de0f3d8faffec
 
-#001C30 - darkest
-#176B87 - dark
-#64CCC5 - light
-#DAFFFB - lightest
+0F2300
+A2B77D
+E0F3D8
+FAFFEC
+
+dark theme | red
+https://colorhunt.co/palette/1300004c0000761010ffd6d6
+
+130000
+4C0000
+761010
+FFD6D6

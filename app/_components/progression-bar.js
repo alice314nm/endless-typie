@@ -7,7 +7,7 @@ export default function ProgressionBar({ bars, progress }) {
     const barItems = Array.from({ length: bars }, (_, index) => (
         <li 
             key={index} 
-            className={`w-10 h-8 my-[1px] rounded ${index < progress ? 'bg-gray-300' : 'bg-blue-300'}`}
+            className={`w-10 h-8 my-[1px] rounded ${index < progress ? 'bg-[#FAFFEC] dark:bg-[#FFD6D6]' : 'bg-[#A2B77D] dark:bg-[#4C0000]'}`}
         ></li>
     ));
 

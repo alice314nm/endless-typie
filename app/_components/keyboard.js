@@ -1,13 +1,12 @@
 // Keyboard.js
 import React from 'react';
 import Key from './key';
-import '../keyboard.css';
 
 export default function Keyboard() {
     return (
-        <div className="keyboard-class">
+        <div className="flex flex-col items-center">
             {/* First Row */}
-            <div className="keyboard-row">
+            <div className="flex">
                 <Key dataKey="192" topLabel="`" bottomLabel="~" styleClass="red" />
                 <Key dataKey="49" topLabel="!" bottomLabel="1" styleClass="red"/>
                 <Key dataKey="50" topLabel="@" bottomLabel="2" styleClass="red"/>
@@ -25,7 +24,7 @@ export default function Keyboard() {
             </div>
 
             {/* Second Row */}
-            <div className="keyboard-row">
+            <div className="flex">
                 <Key dataKey="9" topLabel="tab" />
                 <Key dataKey="81" topLabel="q" styleClass="red"/>
                 <Key dataKey="87" topLabel="w" styleClass="yellow"/>
@@ -43,7 +42,7 @@ export default function Keyboard() {
             </div>
 
             {/* Third Row */}
-            <div className="keyboard-row">
+            <div className="flex">
                 <Key dataKey="20" topLabel="caps lock" />
                 <Key dataKey="65" topLabel="a" styleClass="red"/>
                 <Key dataKey="83" topLabel="s" styleClass="yellow"/>
@@ -60,7 +59,7 @@ export default function Keyboard() {
             </div>
 
             {/* Fourth Row */}
-            <div className="keyboard-row">
+            <div className="flex">
                 <Key dataKey="16" topLabel="shift" />
                 <Key dataKey="90" topLabel="z" styleClass="red"/>
                 <Key dataKey="88" topLabel="x" styleClass="yellow"/>
@@ -76,7 +75,7 @@ export default function Keyboard() {
             </div>
 
             {/* Fifth Row */}
-            <div className="keyboard-row">
+            <div className="flex">
                 <Key dataKey="17" topLabel="ctrl" />
                 <Key dataKey="17" topLabel="win" />
                 <Key dataKey="17" topLabel="alt" />
