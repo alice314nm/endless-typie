@@ -5,7 +5,7 @@ import TextWindow from "./_components/text-window";
 
 export default function Home() {
   return (
-    <main className="h-screen dark:bg-[#130000]">
+    <main className="h-screen dark:bg-darkRed">
       <Header/>
       <Keyboard/>
       <TextWindow/>

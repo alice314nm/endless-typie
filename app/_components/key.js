@@ -3,11 +3,11 @@ import React from 'react';
 export default function Key({ dataKey, topLabel, bottomLabel, styleClass }) {
 
     const keyLightColors = {
-    red: 'bg-[#ff9e9d] dark:bg-[#4C0000]',
-    yellow: 'bg-[#fffb99] dark:bg-[#a38015]',
-    green: 'bg-[#95fd98] dark:bg-[#008504]',
+    red: 'bg-[#ff9e9d] dark:bg-[#690101]',
+    yellow: 'bg-[#fffb99] dark:bg-[#b38700]',
+    green: 'bg-[#95fd98] dark:bg-[#00ab05]',
     blue: 'bg-[#90f0e9] dark:bg-[#0283ab]', 
-    purple: 'bg-[#f999ff] dark:bg-[#9700a1]',
+    purple: 'bg-[#f999ff] dark:bg-[#ac02b8]',
     };
 
   const keyStyles = `
@@ -27,7 +27,7 @@ export default function Key({ dataKey, topLabel, bottomLabel, styleClass }) {
     32: "w-[268px]", // Space
   };
 
-  const keyBackground = keyLightColors[styleClass] || 'bg-gray-100 dark:bg-[#696969]';  
+  const keyBackground = keyLightColors[styleClass] || 'bg-gray-100 dark:bg-[#6e6565]';  
 
   return (
     <div

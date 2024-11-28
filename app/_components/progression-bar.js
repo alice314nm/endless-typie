@@ -7,13 +7,13 @@ export default function ProgressionBar({ bars, progress }) {
     const barItems = Array.from({ length: bars }, (_, index) => (
         <li 
             key={index} 
-            className={`w-10 h-8 my-[1px] rounded ${index < progress ? 'bg-[#FAFFEC] dark:bg-[#FFD6D6]' : 'bg-[#A2B77D] dark:bg-[#4C0000]'}`}
+            className={`w-10 h-10 border-2 rounded-3xl border-green dark:border-lightestRed ${index < progress ? 'bg-lightestGreen dark:bg-lightestRed' : 'bg-green dark:bg-red'}`}
         ></li>
     ));
 
     return (
         <div className="flex items-center justify-center">
-            <ul className="flex flex-col">
+            <ul className="flex flex-col gap-4">
                 {barItems}
             </ul>
         </div>

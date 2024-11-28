@@ -1,10 +1,12 @@
 import Link from "next/link";
 import React from "react";
-import ThemeToggle from "./ThemeToggle";
+import ThemeToggle from "./theme-toggle";
 
 export default function Header() {
+  const liStyle = "cursor-pointer hover:text-green dark:hover:text-red"
+  
   return (
-    <header className=" border-b border-[#0F2300] bg-[#E0F3D8] py-4 mb-5 dark:bg-[#130000] dark:border-[#761010] dark:text-[#FFD6D6]">
+    <header className="w-screen border-b border-[#0F2300] bg-[#E0F3D8] py-4 mb-5 dark:bg-[#130000] dark:border-[#761010] dark:text-[#FFD6D6]">
       <ul className="flex items-center justify-between mx-auto max-w-6xl px-4">
         {/* App Logo */}
         <div className="flex flex-row gap-16 flex-shrink-0">
@@ -15,22 +17,22 @@ export default function Header() {
           </div>
           <div className="flex gap-10">
                 <Link href="/lessons/">
-                    <li className="cursor-pointer">lessons</li>
+                    <li className={liStyle}>lessons</li>
                 </Link>
                 <p>|</p>
                 <Link href="/">
-                    <li className="cursor-pointer">practice</li>
+                    <li className={liStyle}>practice</li>
                 </Link>
                 <p>|</p>
                 <Link href="/analytics/">
-                    <li className="cursor-pointer">analytics</li>
+                    <li className={liStyle}>analytics</li>
                 </Link>
             </div>
         </div>
 
         {/* Right Section */}
         <div className="flex gap-8">
-        <Link href="/">
+        <Link href="/login">
             <div className="flex gap-2">
                 
                 <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20" className="fill-current dark:text-[#FFD6D6]">
@@ -38,7 +40,7 @@ export default function Header() {
                     <path d="M12,14a9.01,9.01,0,0,0-9,9,1,1,0,0,0,2,0,7,7,0,0,1,14,0,1,1,0,0,0,2,0A9.01,9.01,0,0,0,12,14Z"/>
                 </svg>
 
-                <li className="cursor-pointer">alice314nm</li>                
+                <li className={liStyle}>alice314nm</li>                
             </div>
           </Link>
           <p>|</p>
