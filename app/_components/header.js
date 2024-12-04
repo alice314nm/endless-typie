@@ -1,8 +1,23 @@
+'use client';
+
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import ThemeToggle from "./theme-toggle";
+import { useUserAuth } from "../_utils/auth-context";
 
 export default function Header() {
+
+  const { user }  = useUserAuth();
+
+  useEffect(() => {
+
+    // if(user){
+    //     dbGetItemsByUser(user.uid, setItemList)
+    // }
+
+    }, [user]
+  )
+
   const liStyle = "cursor-pointer hover:text-green dark:hover:text-red"
   
   return (
@@ -40,7 +55,13 @@ export default function Header() {
                     <path d="M12,14a9.01,9.01,0,0,0-9,9,1,1,0,0,0,2,0,7,7,0,0,1,14,0,1,1,0,0,0,2,0A9.01,9.01,0,0,0,12,14Z"/>
                 </svg>
 
-                <li className={liStyle}>alice314nm</li>                
+                {
+                  user ? (
+                    <li className={liStyle}>{user.displayName}</li> 
+                  ) : (
+                    <li className={liStyle} href="./signin">sign in</li>
+                  )
+                }
             </div>
           </Link>
           <p>|</p>

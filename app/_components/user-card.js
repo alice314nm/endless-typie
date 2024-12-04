@@ -1,6 +1,12 @@
-import React from 'react'
-//
+'use client';
+
+import React, { useEffect } from 'react'
+import { useUserAuth } from '../_utils/auth-context';
+
 export default function UserCard({userName, testsNumber}){
+  
+  const { user, firebaseSignOut } = useUserAuth();
+
     return(
         <div className="flex flex-row bg-lightestGreen rounded-lg gap-4 p-4 w-full dark:bg-red dark:text-lightestRed">
             <div className="flex flex-col border-r-2 gap-2 border-r-darkGreen pr-4 dark:border-r-lightestRed">
@@ -19,7 +25,7 @@ export default function UserCard({userName, testsNumber}){
                 <h2 className="text-xl font-bold">{userName}</h2>
               </div>
               <p>Tests taken: {testsNumber}</p>
-              <button className='bg-green border-2 border-green rounded-lg dark:bg-lightRed hover:bg-lightestGreen dark:hover:bg-red dark:border-lightRed'>sign out</button>
+              <button onClick={firebaseSignOut} className='bg-green border-2 border-green rounded-lg dark:bg-lightRed hover:bg-lightestGreen dark:hover:bg-red dark:border-lightRed'>sign out</button>
             </div>
 
             <div className="flex flex-col justify-between w-full gap-4 items-end">

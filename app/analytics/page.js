@@ -1,16 +1,35 @@
+'use client';
+
 import Header from "@/app/_components/header";
 import CardRecord from "../_components/card-records";
 import UserCard from "../_components/user-card";
+import { useUserAuth } from "../_utils/auth-context";
+import { useEffect } from "react";
+import SignInCard from "../_components/signin-card";
 
 export default function Page() {
+
+  const { user }  = useUserAuth();
+
+  useEffect(() => {
+
+    // if(user){
+    //     dbGetItemsByUser(user.uid, setItemList)
+    // }
+
+    }, [user]
+)
+
   return (
-    <main className="h-screen flex flex-col dark:bg-darkRed">
+    <main className="h-screen flex flex-col dark:bg-darkRed dark:text-lightestRed">
       <Header />
-      <div className="flex flex-col items-center h-full w-screen">
+      {
+        user ? (
+          <div className="flex flex-col items-center h-full w-screen">
         <div className="flex flex-col w-[75%] gap-6">
           {/* User Info Card */}
           <UserCard
-          userName="alice314nm"
+          userName={user.displayName}
           testsNumber={34}/>
 
           {/* Card Records */}
@@ -32,6 +51,12 @@ export default function Page() {
           </div>
         </div>
       </div>
+
+        ) : (
+          <SignInCard title={"To track your progress and records please sign in."} type={true}/>
+        )
+      }
+      
     </main>
   );
 }
