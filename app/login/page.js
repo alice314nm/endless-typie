@@ -1,6 +1,11 @@
 import Header from "../_components/header";
+// import { useUserAuth } from "./_utils/auth-context";
 
 export default function Page() {
+
+  // const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+
+
   return (
     <main className="h-screen dark:bg-darkRed flex flex-col dark:text-lightestRed">
       <Header />
