@@ -17,7 +17,7 @@ export default function Home() {
     <main className="h-screen dark:bg-darkRed dark:text-lightestRed flex items-center flex-col">
       <Header />
 
-        <div className="fixed flex flex-col  bg-lightestGreen dark:bg-red dark:border-lightestRed w-64 top-1/3 border-2 rounded-lg p-3 border-green">
+        <div className="hidden fixed flex flex-col  bg-lightestGreen dark:bg-red dark:border-lightestRed w-64 top-1/3 border-2 rounded-lg p-3 border-green">
           <h2 className="text-center text-lg">Well done!</h2>
           <div className="flex flex-row gap-10 items-end">
             <div>

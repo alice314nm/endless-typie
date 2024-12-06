@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Key({ dataKey, topLabel, bottomLabel, styleClass }) {
+export default function Key({ dataKey, topLabel, bottomLabel, styleClass, focused }) {
 
     const keyLightColors = {
     red: 'bg-[#ff9e9d] dark:bg-[#690101]',
@@ -10,10 +10,12 @@ export default function Key({ dataKey, topLabel, bottomLabel, styleClass }) {
     purple: 'bg-[#f999ff] dark:bg-[#ac02b8]',
     };
 
-  const keyStyles = `
+    const keyStyles = `
     flex flex-col justify-center items-center p-2 m-1 text-center 
     rounded-md text-xs h-8 w-10
-  `;
+    `;
+
+    const keyFocused = "shadow-[0_0_0_4px_#A2B77D] dark:shadow-[0_0_0_4px_#FFD6D6]"
 
   const customWidths = {
     8: "w-[97px]", // Backspace
@@ -31,7 +33,7 @@ export default function Key({ dataKey, topLabel, bottomLabel, styleClass }) {
 
   return (
     <div
-      className={`${keyStyles} ${customWidths[dataKey] || ""} ${keyBackground} `}
+      className={`${keyStyles} ${customWidths[dataKey] || ""} ${keyBackground} ${focused ? keyFocused : ""}`}
       data-key={dataKey}
     >
       <center className="dark:text-white">

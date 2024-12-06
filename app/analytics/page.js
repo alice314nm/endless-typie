@@ -29,7 +29,7 @@ export default function Page() {
         <div className="flex flex-col w-[75%] gap-6">
           {/* User Info Card */}
           <UserCard
-          userName={user.displayName}
+          userName={user.displayName || user.email}
           testsNumber={34}/>
 
           {/* Card Records */}

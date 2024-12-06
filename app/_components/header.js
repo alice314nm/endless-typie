@@ -57,7 +57,7 @@ export default function Header() {
 
                 {
                   user ? (
-                    <li className={liStyle}>{user.displayName}</li> 
+                    <li className={liStyle}>{user.displayName || user.email}</li>  
                   ) : (
                     <li className={liStyle} href="./signin">sign in</li>
                   )

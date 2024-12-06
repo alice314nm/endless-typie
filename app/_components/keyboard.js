@@ -25,7 +25,7 @@ export default function Keyboard() {
 
             {/* Second Row */}
             <div className="flex">
-                <Key dataKey="9" topLabel="tab" />
+                <Key dataKey="9" topLabel="tab"/>
                 <Key dataKey="81" topLabel="q" styleClass="red"/>
                 <Key dataKey="87" topLabel="w" styleClass="yellow"/>
                 <Key dataKey="69" topLabel="e" styleClass="green"/>

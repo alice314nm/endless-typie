@@ -15,7 +15,7 @@ export default function LessonWindow({ level, description, status }) {
         <div className="transition-all duration-300 cursor-pointer flex items-center rounded justify-center w-96 bg-lightestGreen hover:bg-lightGreen h-auto dark:hover:bg-darkRed dark:bg-red dark:text-lightestRed"> 
             <div className={`w-5 h-20 ${colorStatus}`}></div>
             <div className="flex flex-col w-full px-2">
-                <p className="text-left px-2">{level} level</p>
+                <p className="text-left px-2">{level} lesson</p>
                 <hr className="ml-2 my-2 border-darkGreen dark:border-lightestRed" />
                 <p className="text-right">{description}</p>
             </div>
