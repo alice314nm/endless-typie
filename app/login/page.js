@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Header from "../_components/header";
 import SignInCard from "../_components/signin-card";
 import { useUserAuth } from "../_utils/auth-context";
+import Link from "next/link";
 
 
 export default function Page() {
@@ -120,15 +121,15 @@ export default function Page() {
               >
                 Login
               </button>
-              <a
+              <p
                 className="text-sky-500 underline"
                 onClick={() => setResetPasswordMode(true)} // Open reset password form
               >
                 Forgot password?
-              </a>
-              <a href="/signin">
+              </p>
+              <Link href="/signin">
                 No account? <span className="text-sky-500 underline">Sign in</span>
-              </a>
+              </Link>
             </form>
           </div>
         )}

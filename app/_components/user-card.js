@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react'
 import { useUserAuth } from '../_utils/auth-context';
+import Link from 'next/link';
 
 export default function UserCard({userName, testsNumber}){
   
@@ -58,7 +59,7 @@ export default function UserCard({userName, testsNumber}){
               </div>
 
               {/* Go to last level */}
-              <a className="p-2 bg-green border-2 border-green rounded-lg hover:cursor dark:border-lightRed dark:hover:bg-red dark:bg-lightRed">Go to the last level</a>
+              <Link href="/lessons"className="p-2 bg-green border-2 border-green rounded-lg hover:cursor dark:border-lightRed dark:hover:bg-red dark:bg-lightRed">Go to the last level</Link>
             </div>
           </div>
     );
