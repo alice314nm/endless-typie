@@ -29,6 +29,34 @@ export async function dbGetAllLessons(LessonsListStateSetter){
     }
 }
 
+export async function dbGetAllLevelsByLessonId(lessonId, LevelListStateSetter){
+    try {
+        const allLevelsReference = collection(db, "lessons", lessonId, 'levels');
+        const allLevelQuery = query(allLevelsReference);
+        const querySnapshot = await getDocs(allLevelQuery);
+
+        let LevelsList = [];
+        
+        querySnapshot.forEach((docSnap)=>{
+            let thisLesson = {
+                id: docSnap.id,
+                ...docSnap.data()
+            }
+
+            LevelsList.push(thisLesson)
+        });        
+
+        //This would require function to be
+        //run in an asynchronous environment ->
+        //return blogPostList; 
+
+        LevelListStateSetter(LevelsList)
+    }
+    catch (error){
+        console.log(error)
+    }
+}
+
 export async function dbGetLessonById(lessonId, levelId, LessonStateSetter) {
     try {
       const LessonReference = doc(db, "lessons", lessonId, "levels", levelId);
