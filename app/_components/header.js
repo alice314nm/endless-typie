@@ -46,7 +46,7 @@ export default function Header() {
         </div>
 
         {/* Right Section */}
-        <div className="flex gap-8">
+        <div className="flex gap-4">
         <Link href="/login">
             <div className="flex gap-2">
                 
