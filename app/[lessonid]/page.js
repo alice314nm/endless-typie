@@ -90,30 +90,23 @@ export default function Page() {
         setAccuracy(null);
     };
 
-    // Function to change the text when typing is complete
     useEffect(() => {
         if (isTypingComplete) {
-            // Trigger when typing is complete
             console.log("Typing complete! Changing text...");
     
-            // Check if there are more lessons to move to
             if (allLessons.length > 0) {
-                // Find the index of the current lesson
                 const currentLessonIndex = allLessons.findIndex((lesson) => lesson.textToType === text);
                 
                 if (currentLessonIndex >= 0 && currentLessonIndex < allLessons.length - 1) {
-                    // Move to the next lesson (ensure we don't go out of bounds)
                     const nextLesson = allLessons[currentLessonIndex + 1];
                     
                     if (nextLesson && nextLesson.textToType) {
-                        // Set the next lesson's text for typing
                         setText(nextLesson.textToType);
                         setTextToRead(nextLesson.textToRead);
                         setCurrentDataKeyToType(nextLesson.textToType[0]);
                         setLetterToType(nextLesson.textToType[0]);
                         setFutureText(nextLesson.textToType.slice(1));
         
-                        // Reset currentIndex to start typing the new text
                         setCurrentIndex(0);
                         setPastText("");
                         setCorrectLetterStatus(true);
@@ -122,12 +115,11 @@ export default function Page() {
                         setAccuracy(null);
                     }
                 } else {
-                    // Optionally, handle the case when all lessons are completed (e.g., show a "Completed" message)
                     console.log("All lessons completed!");
                 }
             }
         }
-    }, [isTypingComplete, allLessons, text]); // Dependency on text to track current lesson
+    }, [isTypingComplete, allLessons, text]); 
     
     return (
         <main className="h-screen dark:bg-darkRed flex flex-col dark:text-lightestRed">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useUserAuth } from '../_utils/auth-context';
+import Link from 'next/link';
 
 export default function SignInCard({ title, type }) {
     const { user, firebaseSignOut } = useUserAuth();
@@ -12,10 +13,10 @@ export default function SignInCard({ title, type }) {
         
         {
             type ? (
-                <a className="text-sky-500 underline" href="./signin">Go to sign-in page</a>
+                <Link className="text-sky-500 underline" href="./signin">Go to sign-in page</Link>
 
             ) : (
-                <a onClick={firebaseSignOut} className="text-sky-500 underline">Sign out</a>
+                <Link onClick={firebaseSignOut} className="text-sky-500 underline">Sign out</Link>
             )
         }
       </div>
