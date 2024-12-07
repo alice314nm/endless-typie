@@ -33,6 +33,7 @@ export default function Page() {
                 LessonsList.map( (lesson) => {
 
                     let lessonUrl = `/${lesson.id}`;
+                    console.log(lesson.id)
 
                     return (
                         <Link key={lesson.id} href={lessonUrl}>

@@ -36,7 +36,6 @@ export async function dbGetLessonById(lessonId, levelId, LessonStateSetter) {
   
       if (documentSnapshot.exists()) {
         const lessonData = documentSnapshot.data();
-        // console.log("Fetched Lesson Data:", lessonData)
         return LessonStateSetter(lessonData); // Set the entire lesson object
       } else {
         console.log("The lesson does not exist in the database");

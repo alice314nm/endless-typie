@@ -9,11 +9,13 @@ import { useUserAuth } from '../_utils/auth-context';
 import SignInCard from '../_components/signin-card';
 import { dbGetLessonById } from '../_services/lessons_services';
 import useTypingLogic from '../_functions/typing';
+import { useParams } from 'next/navigation';
 
-export default function Page({ params }) {
+export default function Page() {
     const { user } = useUserAuth();
     const [lesson, setLesson] = useState({});
-    const [text, setText] = useState(""); // Initialize text state
+    const [text, setText] = useState("");
+    const { lessonid } = useParams();
 
     // Typing logic states
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -29,10 +31,9 @@ export default function Page({ params }) {
 
     // Fetch the lesson when the component mounts
     useEffect(() => {
-        if (user) {
-            dbGetLessonById("lesson1", "level1", setLesson);
-        }
-    }, [user]);
+        console.log(lessonid); 
+        dbGetLessonById(lessonid, "level1", setLesson);
+    }, [lessonid]);
 
     // Update text when lesson changes
     useEffect(() => {
@@ -77,7 +78,7 @@ export default function Page({ params }) {
         <main className="h-screen dark:bg-darkRed flex flex-col dark:text-lightestRed">
             <Header />
             {user ? (
-                <div className="flex justify-center items-start mt-16 flex-row grow relative">
+                <div className="flex justify-center items-start mt-10 flex-row grow relative">
                     <div className="flex flex-col items-center">
                         <Keyboard currentKeyToType={currentDataKeyToType} />
                         <TextWindow
