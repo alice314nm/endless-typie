@@ -7,7 +7,7 @@ import TextWindow from "./_components/text-window";
 import useTypingLogic from "./_functions/typing";
 
 export default function Home() {
-  const text = "Lorem"
+  const text = "President Kennedy was the fastest random speaker in the world with upwards of 350 words per minute."
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(true);
 
   //current index of the letter to type
@@ -41,7 +41,7 @@ export default function Home() {
     setWpm(0);
     setAccuracy(null)
   };
-  
+
   useTypingLogic({
     text,
     currentIndex,
