@@ -13,11 +13,11 @@ import { useParams } from 'next/navigation';
 
 export default function Page() {
     const { user } = useUserAuth();
-    const [lesson, setLesson] = useState({});
     const [text, setText] = useState("");
     const { lessonid } = useParams();
     const [levelList, setLevelList] = useState([]);
     const [allLessons, setAllLessons] = useState([]);
+    const [progress, setProgress] = useState();
 
     // Typing logic states
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -50,6 +50,7 @@ export default function Page() {
                 );
                 setAllLessons(lessons);
                 if (lessons[0] && lessons[0].textToType) {
+                    setProgress(1)
                     setTextToRead(lessons[0].textToRead);
                     setText(lessons[0].textToType);
                     setCurrentDataKeyToType(lessons[0].textToType[0]);
@@ -77,19 +78,6 @@ export default function Page() {
         isTypingComplete,
     });
 
-    // Restart typing session
-    const handleRestart = () => {
-        setCurrentIndex(0);
-        setPastText("");
-        setLetterToType(text[0]);
-        setFutureText(text.slice(1));
-        setCorrectLetterStatus(true);
-        setCurrentDataKeyToType(text[0]);
-        setStartTime(null);
-        setWpm(0);
-        setAccuracy(null);
-    };
-
     useEffect(() => {
         if (isTypingComplete) {
             console.log("Typing complete! Changing text...");
@@ -101,6 +89,7 @@ export default function Page() {
                     const nextLesson = allLessons[currentLessonIndex + 1];
                     
                     if (nextLesson && nextLesson.textToType) {
+                        setProgress(currentLessonIndex+2)
                         setText(nextLesson.textToType);
                         setTextToRead(nextLesson.textToRead);
                         setCurrentDataKeyToType(nextLesson.textToType[0]);
@@ -137,7 +126,7 @@ export default function Page() {
                         />
                     </div>
                     <div className="">
-                        <ProgressionBar />
+                        <ProgressionBar bars={levelList.length} progress={progress}/>
                     </div>
                 </div>
             ) : (
