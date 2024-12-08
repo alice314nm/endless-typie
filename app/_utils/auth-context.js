@@ -44,11 +44,18 @@ export const AuthContextProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+  //   });
+  //   return () => unsubscribe();
+  // }, []);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      setUser(currentUser || null); // Ensure a default fallback
     });
-    return () => unsubscribe();
+    return () => unsubscribe(); // Clean up the listener on unmount
   }, []);
 
   return (

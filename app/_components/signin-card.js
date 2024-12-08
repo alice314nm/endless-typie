@@ -16,7 +16,7 @@ export default function SignInCard({ title, type }) {
                 <Link className="text-sky-500 underline" href="./signin">Go to sign-in page</Link>
 
             ) : (
-                <Link onClick={firebaseSignOut} className="text-sky-500 underline">Sign out</Link>
+                <a onClick={firebaseSignOut} className="text-sky-500 underline">Sign out</a>
             )
         }
       </div>
