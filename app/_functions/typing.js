@@ -1,4 +1,6 @@
-import { useEffect } from "react";
+'use client'
+
+import { useEffect, useState } from "react";
 
 export default function useTypingLogic({
   text,
@@ -13,14 +15,23 @@ export default function useTypingLogic({
   startTime,
   setStartTime,
   isTypingComplete,
+  setAccuracy,
 }) {
+  const [correctKeystrokes, setCorrectKeystrokes] = useState(0);
+  const [totalKeystrokes, setTotalKeystrokes] = useState(0);
+
   useEffect(() => {
+
     const handleKeyDown = (event) => {
+      setTotalKeystrokes((prev) => prev + 1);
+
       if (startTime === null) {
         setStartTime(Date.now());
       }
 
-      if (event.key.toLowerCase() === text[currentIndex]?.toLowerCase()) {
+      if (event.key === text[currentIndex]) {
+        setCorrectKeystrokes((prev) => prev + 1);
+
         const newIndex = currentIndex + 1;
         setCurrentDataKeyToType(text[newIndex]);
 
@@ -35,12 +46,17 @@ export default function useTypingLogic({
       } else {
         setCorrectLetterStatus(false);
       }
+
+      if (totalKeystrokes > 0) {
+        const accuracy = (correctKeystrokes / totalKeystrokes) * 100;
+        setAccuracy(accuracy.toFixed(2));
+      }
     };
 
     const intervalId = setInterval(() => {
       if (startTime && currentIndex > 0) {
         const timeInSeconds = (Date.now() - startTime) / 1000;
-        const wordsTyped = currentIndex / 5; // 1 word = 5 characters
+        const wordsTyped = text.slice(0, currentIndex).split(/\s+/).length;
         const calculatedWpm = (wordsTyped / timeInSeconds) * 60;
         setWpm(calculatedWpm.toFixed(2));
       }
@@ -69,5 +85,10 @@ export default function useTypingLogic({
     startTime,
     setStartTime,
     isTypingComplete,
+    setAccuracy,
+    correctKeystrokes,
+    totalKeystrokes,
   ]);
+
+  return null;
 }

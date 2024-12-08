@@ -22,13 +22,12 @@ export default function Home() {
   //If the typed letter by user is correct
   const [correctLetterStatus, setCorrectLetterStatus] = useState(true);
 
-
   //to restart process
   const isTypingComplete = currentIndex >= text.length;
 
   const [wpm, setWpm] = useState(0);
   const [startTime, setStartTime] = useState(null);
-  const [accuracy, setAccuracy] = useState(null);
+  const [accuracy, setAccuracy] = useState(100.00);
   
   const handleRestart = () => {
     setCurrentIndex(0);
@@ -55,6 +54,7 @@ export default function Home() {
     startTime,
     setStartTime,
     isTypingComplete,
+    setAccuracy,
   });
 
   const toggleKeyboardVisibility = () => {
@@ -96,22 +96,29 @@ export default function Home() {
             </div>
           )}
 
-      <div className="border-b-2 dark:border-b-red border-b-green w-[58%] flex flex-row items-center justify-between gap-4 pb-1 mb-2">
+      <div className="border-b-2 dark:border-b-red border-b-green w-[720px] flex flex-row items-center justify-between gap-4 pb-1 mb-2">
         <h2 className="text-lg">speed: {wpm} | accuracy: {accuracy}%</h2>
 
         <div className="flex flex-row gap-4">
           <div className="flex flex-row gap-2 items-center">
             <p>hide keyboard</p>
             <button
-              className="relative inline-flex items-center cursor-pointer w-11 h-5 rounded-full bg-green dark:bg-red"
-              onClick={toggleKeyboardVisibility}
-            >
-              <span
-                className={`${
-                  isKeyboardVisible ? "translate-x-1" : "translate-x-6"
-                } dark:bg-lightestRed inline-block w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-300 ease-in-out`}
-              ></span>
-            </button>
+            className={`bg-green dark:bg-red relative inline-flex items-center cursor-pointer w-11 h-5 rounded-full ${
+              startTime
+                ? "cursor-not-allowed"
+                : ""
+            }`}
+            onClick={toggleKeyboardVisibility}
+            disabled={startTime !== null}
+          >
+            <span
+              className={`${
+                isKeyboardVisible ? "translate-x-1" : "translate-x-6"
+              } ${
+                startTime ? "" : ""
+              } dark:bg-lightestRed bg-white inline-block w-4 h-4 rounded-full shadow-md transform transition-transform duration-300 ease-in-out`}
+            ></span>
+          </button>
           </div>
           <button onClick={handleRestart} className="flex flex-row gap-2 items-center">
             <p>restart</p>

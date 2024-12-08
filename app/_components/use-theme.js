@@ -7,9 +7,8 @@ export function UseTheme() {
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
-    const isSystemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-    if (savedTheme === "dark" || (!savedTheme && isSystemDark)) {
+    if (savedTheme === "dark") {
       setIsDark(true);
       document.documentElement.classList.add("dark");
     } else {
@@ -23,7 +22,7 @@ export function UseTheme() {
       const newTheme = !prevTheme;
       localStorage.setItem("theme", newTheme ? "dark" : "light");
       document.documentElement.classList.toggle("dark", newTheme);
-      
+
       return newTheme;
     });
   };
