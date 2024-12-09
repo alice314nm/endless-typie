@@ -10,7 +10,9 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail
 } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
+import { doc, setDoc, collection, writeBatch } from "firebase/firestore";
+import { initializeUserData } from "../_services/user_stats_services";
 
 const AuthContext = createContext();
 
@@ -18,13 +20,29 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const googleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
+    try {
+      const provider = new GoogleAuthProvider();
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
+  
+      // Initialize user data
+      await initializeUserData(user, db);
+    } catch (error) {
+      console.error('Error with Google Sign-In:', error.message);
+    }
   };
 
   const doCreateUserWithEmailAndPassword = async (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  }
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+  
+      // Initialize user data
+      await initializeUserData(user, db);
+    } catch (error) {
+      console.error('Error creating user:', error.message);
+    }
+  };
 
   const doSignInUserWithEmailAndPassword = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);

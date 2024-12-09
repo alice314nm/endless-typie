@@ -7,9 +7,11 @@ import ProgressionBar from '../_components/progression-bar';
 import TextWindow from '../_components/text-window';
 import { useUserAuth } from '../_utils/auth-context';
 import SignInCard from '../_components/signin-card';
-import { dbGetAllLevelsByLessonId, dbGetLessonById } from '../_services/lessons_services';
+import { dbGetAllLevelsByLessonId, dbGetLevelsById, dbGetLessonById } from '../_services/lessons_services';
 import useTypingLogic from '../_functions/typing';
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
+import { dbGetUserLessonById, dbGetUserLessonLevelsById, dbUpdateLevelStatus } from '../_services/user_stats_services';
 
 export default function Page() {
     const { user } = useUserAuth();
@@ -17,6 +19,9 @@ export default function Page() {
     const { lessonid } = useParams();
     const [levelList, setLevelList] = useState([]);
     const [allLessons, setAllLessons] = useState([]);
+    const [lesson, setLesson] = useState([]);
+    const [levelStatuses, setLevelStatuses] = useState([]);
+
     const [progress, setProgress] = useState();
 
     // Typing logic states
@@ -29,15 +34,18 @@ export default function Page() {
     const [futureText, setFutureText] = useState("");
     const [correctLetterStatus, setCorrectLetterStatus] = useState(true);
     const isTypingComplete = currentIndex >= text.length;
-    const [wpm, setWpm] = useState(0);
     const [startTime, setStartTime] = useState(null);
-    const [accuracy, setAccuracy] = useState(null);
+
 
     // Fetch levels and lessons when component mounts
     useEffect(() => {
-        console.log(lessonid);
-        dbGetAllLevelsByLessonId(lessonid, setLevelList);
-    }, [lessonid]);
+        if (user) {
+            dbGetAllLevelsByLessonId(lessonid, setLevelList);
+            dbGetLessonById(lessonid, setLesson);
+            dbGetUserLessonLevelsById(user.uid, lessonid, setLevelStatuses);
+        }
+
+    }, [user, lessonid]);
 
     // Fetch lessons for each level once levels are fetched
     useEffect(() => {
@@ -45,7 +53,7 @@ export default function Page() {
             const fetchLessonsForAllLevels = async () => {
                 const lessons = await Promise.all(
                     levelList.map((level) =>
-                        dbGetLessonById(lessonid, level.id, (lessonData) => lessonData)
+                        dbGetLevelsById(lessonid, level.id, (lessonData) => lessonData)
                     )
                 );
                 setAllLessons(lessons);
@@ -72,7 +80,6 @@ export default function Page() {
         setLetterToType,
         setFutureText,
         setCorrectLetterStatus,
-        setWpm,
         startTime,
         setStartTime,
         isTypingComplete,
@@ -84,51 +91,77 @@ export default function Page() {
     
             if (allLessons.length > 0) {
                 const currentLessonIndex = allLessons.findIndex((lesson) => lesson.textToType === text);
-                
-                if (currentLessonIndex >= 0 && currentLessonIndex < allLessons.length - 1) {
-                    const nextLesson = allLessons[currentLessonIndex + 1];
-                    
-                    if (nextLesson && nextLesson.textToType) {
-                        setProgress(currentLessonIndex+2)
-                        setText(nextLesson.textToType);
-                        setTextToRead(nextLesson.textToRead);
-                        setCurrentDataKeyToType(nextLesson.textToType[0]);
-                        setLetterToType(nextLesson.textToType[0]);
-                        setFutureText(nextLesson.textToType.slice(1));
-        
-                        setCurrentIndex(0);
-                        setPastText("");
-                        setCorrectLetterStatus(true);
-                        setStartTime(null);
-                        setWpm(0);
-                        setAccuracy(null);
+    
+                if (currentLessonIndex >= 0) {
+                    const currentLevelId = levelList[currentLessonIndex]?.id;
+                    if (currentLevelId) {
+                        dbUpdateLevelStatus(user.uid, lessonid, currentLevelId, true);
                     }
-                } else {
-                    console.log("All lessons completed!");
+    
+                    if (currentLessonIndex < allLessons.length - 1) {
+                        // Handle the next lesson
+                        const nextLesson = allLessons[currentLessonIndex + 1];
+    
+                        if (nextLesson && nextLesson.textToType) {
+                            setProgress(currentLessonIndex + 2);
+                            setText(nextLesson.textToType);
+                            setTextToRead(nextLesson.textToRead);
+                            setCurrentDataKeyToType(nextLesson.textToType[0]);
+                            setLetterToType(nextLesson.textToType[0]);
+                            setFutureText(nextLesson.textToType.slice(1));
+    
+                            setCurrentIndex(0);
+                            setPastText("");
+                            setCorrectLetterStatus(true);
+                            setStartTime(null);
+                        }
+                    } else {
+                        // Handle the last lesson
+                        console.log("All lessons completed!");
+                        setProgress(allLessons.length);
+                    }
                 }
             }
         }
-    }, [isTypingComplete, allLessons, text]); 
+    }, [isTypingComplete, allLessons, text]);
+    
     
     return (
         <main className="h-screen dark:bg-darkRed flex flex-col dark:text-lightestRed">
             <Header />
             {user ? (
-                <div className="flex justify-center items-start mt-10 flex-row grow relative">
-                    <div className="flex flex-col items-center">
-                        <Keyboard currentKeyToType={currentDataKeyToType} />
-                        <TextWindow
-                            textToRead={textToRead}
-                            pastText={pastText}
-                            letterToType={letterToType}
-                            futureText={futureText}
-                            correctLetter={correctLetterStatus}
-                        />
+                <div className="flex flex-col items-center justify-center">
+                    <div className="border-b-2 dark:border-b-red border-b-green w-[770px] flex flex-row items-center justify-between gap-4 pb-1">
+                        <h2 className="text-lg">{lesson.desc}</h2>
+                        <div className="text-start ml-4">
+                            <Link href="/lessons">
+                                <p className="underline">&lt; Go back</p>
+                            </Link>
+                        </div>                      
                     </div>
-                    <div className="">
-                        <ProgressionBar bars={levelList.length} progress={progress}/>
+                    <div className="flex flex-col items-end justify-center mt-5 gap-2">
+                        
+                        <div className="flex justify-center items-start flex-row grow relative">
+                            <div className="flex flex-col items-center justify-start">
+                                <Keyboard currentKeyToType={currentDataKeyToType} />
+                                <TextWindow
+                                    textToRead={textToRead}
+                                    pastText={pastText}
+                                    letterToType={letterToType}
+                                    futureText={futureText}
+                                    correctLetter={correctLetterStatus}
+                                />
+                                
+                            </div>
+                            <div className="">
+                                <ProgressionBar bars={levelList.length} progress={progress}/>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
+                
+                
             ) : (
                 <SignInCard title={"To view lesson please sign in"} type={true} />
             )}

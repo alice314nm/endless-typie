@@ -127,7 +127,7 @@ export default function Page() {
               >
                 Forgot password?
               </p>
-              <Link href="./login">
+              <Link href="./signin">
                 No account? <span className="text-sky-500 underline">Sign in</span>
               </Link>
             </form>

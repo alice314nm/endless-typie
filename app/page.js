@@ -5,11 +5,13 @@ import Header from "./_components/header";
 import Keyboard from "./_components/keyboard";
 import TextWindow from "./_components/text-window";
 import useTypingLogic from "./_functions/typing";
+import { dbAddStatWithKeyboard, dbAddStatWithoutKeyboard } from "./_services/user_stats_services";
+import { useUserAuth } from "./_utils/auth-context";
 
 export default function Home() {
-  const text = "President Kennedy was the fastest random speaker in the world with upwards of 350 words per minute."
+  const text = "Lorem"
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(true);
-
+  const { user } = useUserAuth();
   //current index of the letter to type
   const [currentIndex, setCurrentIndex] = useState(0);
   //current data letter to type
@@ -61,6 +63,19 @@ export default function Home() {
     setIsKeyboardVisible((prev) => !prev);
   };
 
+  useEffect(() => {
+    if (isTypingComplete && user) {
+      const userId = user.uid;
+  
+      if (isKeyboardVisible) {
+        dbAddStatWithKeyboard(userId, wpm, accuracy);
+        console.log(111)
+      } else {
+        console.log(0)
+        dbAddStatWithoutKeyboard(userId, wpm, accuracy);
+      }
+    }
+  }, [isTypingComplete, isKeyboardVisible, wpm, accuracy, user]);
 
   return (
     <main className="h-screen dark:bg-darkRed dark:text-lightestRed flex items-center flex-col">

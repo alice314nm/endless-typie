@@ -16,11 +16,7 @@ export async function dbGetAllLessons(LessonsListStateSetter){
             }
 
             LessonsList.push(thisLesson)
-        });        
-
-        //This would require function to be
-        //run in an asynchronous environment ->
-        //return blogPostList; 
+        });
 
         LessonsListStateSetter(LessonsList)
     }
@@ -46,10 +42,6 @@ export async function dbGetAllLevelsByLessonId(lessonId, LevelListStateSetter){
             LevelsList.push(thisLesson)
         });        
 
-        //This would require function to be
-        //run in an asynchronous environment ->
-        //return blogPostList; 
-
         LevelListStateSetter(LevelsList)
     }
     catch (error){
@@ -57,14 +49,30 @@ export async function dbGetAllLevelsByLessonId(lessonId, LevelListStateSetter){
     }
 }
 
-export async function dbGetLessonById(lessonId, levelId, LessonStateSetter) {
+export async function dbGetLevelsById(lessonId, levelId, LevelStateSetter) {
     try {
       const LessonReference = doc(db, "lessons", lessonId, "levels", levelId);
       const documentSnapshot = await getDoc(LessonReference);
   
       if (documentSnapshot.exists()) {
         const lessonData = documentSnapshot.data();
-        return LessonStateSetter(lessonData); // Set the entire lesson object
+        return LevelStateSetter(lessonData);
+      } else {
+        console.log("The lesson does not exist in the database");
+      }
+    } catch (error) {
+      console.log("Error fetching lesson:", error);
+    }
+}
+
+export async function dbGetLessonById(lessonId, LessonStateSetter) {
+    try {
+      const LevelReference = doc(db, "lessons", lessonId);
+      const documentSnapshot = await getDoc(LevelReference);
+  
+      if (documentSnapshot.exists()) {
+        const lessonData = documentSnapshot.data();
+        return LessonStateSetter(lessonData);
       } else {
         console.log("The lesson does not exist in the database");
       }
