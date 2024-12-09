@@ -139,7 +139,7 @@ export default function Home() {
           <div className="flex flex-row gap-2 items-center">
             <p>hide keyboard</p>
             <button
-            className={`bg-green dark:bg-red relative inline-flex items-center cursor-pointer w-11 h-5 rounded-full ${
+            className={`focus:outline-none bg-green dark:bg-red relative inline-flex items-center cursor-pointer w-11 h-5 rounded-full ${
               startTime
                 ? "cursor-not-allowed"
                 : ""
@@ -157,7 +157,7 @@ export default function Home() {
             ></span>
           </button>
           </div>
-          <button  onKeyDown={(e) => e.preventDefault()} onClick={handleRestart} className="flex flex-row gap-2 items-center">
+          <button  onKeyDown={(e) => e.preventDefault()} onClick={handleRestart} className="focus:outline-none flex flex-row gap-2 items-center">
             <p>restart</p>
             <svg
               width={18}
