@@ -8,6 +8,7 @@ import useTypingLogic from "./_functions/typing";
 import { dbAddStatWithKeyboard, dbAddStatWithoutKeyboard } from "./_services/user_stats_services";
 import { useUserAuth } from "./_utils/auth-context";
 import { dbGetRandomPracticeText } from "./_services/practice_services";
+import Footer from "./_components/footer";
 
 export default function Home() {
   const [text, setText] = useState("");
@@ -176,6 +177,7 @@ export default function Home() {
 
       {isKeyboardVisible && <Keyboard currentKeyToType={currentDataKeyToType}/>}
       <TextWindow pastText={pastText} letterToType={letterToType} futureText={futureText} correctLetter={correctLetterStatus}/>
+      <Footer/>
     </main>
   );
 }
