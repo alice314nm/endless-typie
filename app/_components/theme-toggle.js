@@ -11,6 +11,7 @@ export default function ThemeToggle() {
       
       <p>light</p>
       <button
+       onKeyDown={(e) => e.preventDefault()}
         className="relative inline-flex items-center cursor-pointer w-11 h-5 rounded-full bg-green dark:bg-red"
         onClick={toggleTheme}
       >

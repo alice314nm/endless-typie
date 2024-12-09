@@ -113,7 +113,7 @@ export default function Home() {
                   <p>Accuracy: {accuracy}%</p>
                 </div>
                 <div>
-                  <button className="flex flex-row gap-2 items-center" onClick={handleRestart}>
+                  <button  onKeyDown={(e) => e.preventDefault()} className="flex flex-row gap-2 items-center" onClick={handleRestart}>
                     <p>Restart</p>
                     <svg
                       width={18}
@@ -145,6 +145,7 @@ export default function Home() {
                 : ""
             }`}
             onClick={toggleKeyboardVisibility}
+            onKeyDown={(e) => e.preventDefault()}
             disabled={startTime !== null}
           >
             <span
@@ -156,7 +157,7 @@ export default function Home() {
             ></span>
           </button>
           </div>
-          <button onClick={handleRestart} className="flex flex-row gap-2 items-center">
+          <button  onKeyDown={(e) => e.preventDefault()} onClick={handleRestart} className="flex flex-row gap-2 items-center">
             <p>restart</p>
             <svg
               width={18}
