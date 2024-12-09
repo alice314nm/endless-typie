@@ -7,9 +7,10 @@ import TextWindow from "./_components/text-window";
 import useTypingLogic from "./_functions/typing";
 import { dbAddStatWithKeyboard, dbAddStatWithoutKeyboard } from "./_services/user_stats_services";
 import { useUserAuth } from "./_utils/auth-context";
+import { dbGetRandomPracticeText } from "./_services/practice_services";
 
 export default function Home() {
-  const text = "Lorem"
+  const [text, setText] = useState("");
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(true);
   const { user } = useUserAuth();
   //current index of the letter to type
@@ -30,17 +31,36 @@ export default function Home() {
   const [wpm, setWpm] = useState(0);
   const [startTime, setStartTime] = useState(null);
   const [accuracy, setAccuracy] = useState(100.00);
-  
-  const handleRestart = () => {
+
+  useEffect(() => {
+    (async () => {
+      await dbGetRandomPracticeText(setText);
+    })();
+  }, []);
+
+  useEffect(() => {
+    setPastText(text.slice(0, currentIndex));
+    setLetterToType(text[currentIndex] || '');
+    setFutureText(text.slice(currentIndex + 1));
+    setCurrentDataKeyToType(text[currentIndex] || '');
+  }, [text, currentIndex]);
+
+  const handleRestart = async () => {
     setCurrentIndex(0);
-    setPastText('');
-    setLetterToType(text[0]);
-    setFutureText(text.slice(1));
-    setCorrectLetterStatus(true);
-    setCurrentDataKeyToType(text[0])
     setStartTime(null);
     setWpm(0);
-    setAccuracy(null)
+    setAccuracy(100);
+    if (text.length > 0) {
+      setPastText('');
+      setLetterToType(text[0]);
+      setFutureText(text.slice(1));
+      setCurrentDataKeyToType(text[0]);
+    }
+    
+    setCorrectLetterStatus(true);
+    
+    // Fetch new text after restarting
+    await dbGetRandomPracticeText(setText);
   };
 
   useTypingLogic({
@@ -63,15 +83,16 @@ export default function Home() {
     setIsKeyboardVisible((prev) => !prev);
   };
 
+
+
   useEffect(() => {
     if (isTypingComplete && user) {
       const userId = user.uid;
   
       if (isKeyboardVisible) {
         dbAddStatWithKeyboard(userId, wpm, accuracy);
-        console.log(111)
+
       } else {
-        console.log(0)
         dbAddStatWithoutKeyboard(userId, wpm, accuracy);
       }
     }
