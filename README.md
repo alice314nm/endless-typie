@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ⌨️ **Endless Typie**
 
-## Getting Started
+## 🎯 **Project Overview**  
+ **Endless Typie** is an interactive web application designed to help to **learn and improve blind typing skills**. The platform provides **structured lessons, real-time practice, and progress tracking**, making typing fun and efficient.  
 
-First, run the development server:
+## ✨ **Key Features**  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 🔐 **User Authentication**  
+- Users can **sign up and log in** using **Google or email** through **Firebase Authentication**.  
+- Secure account management ensures personalized tracking of progress.  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🏆 **Lesson Progress Tracking**  
+- Users complete **structured typing lessons**, with their **progress saved** in Firestore.  
+- Each lesson tracks **words per minute (WPM) and accuracy**.  
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### ⌨️ **Typing Records & Analytics**  
+- Typing speed, accuracy, and completed lessons are **automatically recorded**.  
+- Data is **stored in Firestore** for future analysis.  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 📊 **Dashboard for Progress Visualization**  
+Users can view their progress with:  
+- **Average typing speed (WPM)**  
+- **Lesson progress** (completion status of lessons)  
+- **Typing history & performance trends** over time  
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ **Tech Stack**  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| **Technology**  | **Purpose**  |  
+|----------------|-------------|  
+| **React**  | Frontend framework for UI & component-based development  |  
+| **React Router**  | Handles navigation between different sections of the app  |  
+| **Firebase Authentication**  | Enables secure user login via Google or email  |  
+| **Firestore (Firebase Database)**  | Stores user progress, typing records, and lesson data  |  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🚀 **How to Run the Project**  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/your-repo-url.git
+   cd your-repo-name
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Install dependencies**  
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**  
+   ```bash
+   npm run dev
+   ```
+
+4. **Access the app** at http://localhost:3000 or view the **deployed version** at https://endless-typie.vercel.app/
