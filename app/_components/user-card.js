@@ -5,7 +5,7 @@ import { useUserAuth } from '../_utils/auth-context';
 import { dbGetUserLessonsLevelsById } from '../_services/user_stats_services';
 
 export default function UserCard({ userName, testsNumber }) {
-  const { user } = useUserAuth();
+  const { user, firebaseSignOut} = useUserAuth();
 
   const [lessonsData, setLessonsData] = useState([]);
 
